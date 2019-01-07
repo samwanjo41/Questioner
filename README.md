@@ -3,4 +3,4 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
 questions to be answered. Other users can vote on asked questions and they bubble to the top
 or bottom of the log.
 
-https://samwanjo41.github.io/Questioner/UI/meetups.html
+https://samwanjo41.github.io/Questioner/UI/index.html
