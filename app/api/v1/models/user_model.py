@@ -25,8 +25,8 @@ class UsersModel():
         "isAdmin" = False
 
        }
-    self.db.append(payload)
-        return payload
+        self.db.append(payload)
+            return payload
 
       
         
