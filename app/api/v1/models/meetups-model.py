@@ -5,7 +5,7 @@ The admin meetup model
 from datetime import datetime
 
 #assign meetups to an empty list
-MEETUPS_LEN = []
+MEETUPS_rec = []
 
 #create the meetup model class
 class MeetupModel:
@@ -25,7 +25,7 @@ class MeetupModel:
         """
         save a new meetup record 
         """
-        MEETUPS_LEN.append(self)
+        MEETUPS_rec.append(self)
 
     #staticmethod decorator
     #convert the meetup record to JSON format
