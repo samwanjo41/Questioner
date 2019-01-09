@@ -6,7 +6,7 @@ user_view = user_model.UsersModel()
 
 method1 = Blueprint('api', __name__,)
 
-method1.route('/api/v1/register', methods=['POST'])
+@method1.route('/api/v1/register', methods=['POST'])
 def register():
     try:
         data = request.get_json()
@@ -30,3 +30,15 @@ def register():
             "details": response
         }), 201)
     
+@method1.route('/api/v1/login', methods =['POST'])
+def login():
+    """This is the login method"""
+    data = request.get_json()
+    username = data['username']
+    email = data['email']
+
+    return make_response(jsonify({
+        "status": "ok",
+        "username": username,
+        "email": email
+    }), 201)

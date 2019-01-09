@@ -31,7 +31,7 @@ class MeetupsModel:
         return payload
 
     def get_all_meetups(self):
-        """Retrieves all upcoming meetups"""
+        """Retrieves all  meetups"""
         return self.db
 
      def get_a_specific_meetup(self, id):
