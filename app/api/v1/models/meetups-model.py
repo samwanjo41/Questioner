@@ -19,7 +19,7 @@ class MeetupsModel:
         """
         payload = {
 
-        "id" = len(MEETUPS_LEN)+,
+        "id" = len(self.db) + 1,
         "topic" = topic
         "happeningOn" = happenningOn
         "location" = location
@@ -27,8 +27,8 @@ class MeetupsModel:
         "tags" = tags
         "created_at" = datetime.now()
         }
-    self.db.append(payload)
-        return payload
+        self.db.append(payload)
+            return payload
 
     def get_all_meetups(self):
         """Retrieves all  meetups"""
