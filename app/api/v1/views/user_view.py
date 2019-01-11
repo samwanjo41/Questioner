@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, make_response, request
 from ..models.user_model import UsersModel
 
-user_view = user_model.UsersModel()
+user_view = UsersModel()
 
 method1 = Blueprint('api', __name__,)
 
