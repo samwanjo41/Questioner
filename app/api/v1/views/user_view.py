@@ -1,10 +1,10 @@
+
 from flask import Blueprint, jsonify, make_response, request
 from ..models.user_model import UsersModel
 
-user_view = UsersModel()
+user_view = user_model.UsersModel()
 
 method1 = Blueprint('api', __name__,)
-
 
 @method1.route('/api/v1/register', methods=['POST'])
 def register():
@@ -30,6 +30,7 @@ def register():
             "status": 201
         }), 201)
     
+
 
 @method1.route('/api/v1/login', methods=['POST'])
 def login():

@@ -13,6 +13,7 @@ class UsersModel():
         self.db = users_list
 
     def create_user(self, firstname, lastname, othername, email, phoneNumber, username, password):
+
         payload = {
             "id": len(users_list) + 1,
             "firstname": firstname,
@@ -28,6 +29,7 @@ class UsersModel():
         }
         self.db.append(payload)
         return payload
+
 
     def get_user_by_username(self, username):
         single_user = [user for user in self.db if user['username'] == username]

@@ -4,6 +4,18 @@
 
 Crowd-source questions for a meetup. Questioner helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
 
+# Getting Started
+
+# Preriquisites
+
+# Installing
+
+# Running the tests
+
+# Deployment
+
+# Built with
+
 
 # The following are API endpoints enabling one to:
 
