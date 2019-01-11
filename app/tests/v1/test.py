@@ -15,7 +15,7 @@ class TestUsers(unittest.TestCase):
                     "othername": "SamWan",
                     "email": "Sam@wan.com",
                     "phoneNumber": "0716217949",
-                    "username": "samwan76",
+                    "username": "samwan56",
                     "registered": "Date",
                     "isAdmin": False,
                     "password": "kjney789" 
