@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify, make_response, request, flask
-from app.api.v1 import user_model
-from app.api.v1.user_model import UsersModel
+
+from flask import Blueprint, jsonify, make_response, request
+from ..models.user_model import UsersModel
 
 user_view = user_model.UsersModel()
 
@@ -10,7 +10,7 @@ method1 = Blueprint('api', __name__,)
 def register():
     try:
         data = request.get_json()
-        firstname = data["First Name"]
+        firstname = data["FirstName"]
         lastname = data["LastName"]
         othername = data["othername"]
         email = data["email"]
@@ -22,15 +22,17 @@ def register():
             "Error": "Invalid {} Key field".format(e)
         }), 400
     
-    response = user_view.create_user(
-        firstname, lastname, othername, email, phonenumber, username, password
+    response = user_view.create_user(firstname, lastname, othername, email, phonenumber, username, password        
     )
     return make_response(jsonify({
             "Message": "User Created Successfully",
-            "details": response
+            "details": response,
+            "status": 201
         }), 201)
     
-@method1.route('/api/v1/login', methods =['POST'])
+
+
+@method1.route('/api/v1/login', methods=['POST'])
 def login():
     """This is the login method"""
     data = request.get_json()
@@ -39,6 +41,8 @@ def login():
 
     return make_response(jsonify({
         "status": "ok",
-        "username": username,
-        "email": email
-    }), 201)
+        "data": {
+         "username": username,
+         "email": email
+        }
+    }), 200)
