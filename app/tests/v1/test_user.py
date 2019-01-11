@@ -23,13 +23,13 @@ class TestUsers(unittest.TestCase):
 
 
     def test_register(self):
-        response = self.client.post('api/auth/v1/register',
+        response = self.client.post('api/v1/register',
                                     data=json.dumps(self.user_data),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 201)
 
     def test_login(self):
-        response = self.client.post('api/auth/v1/login',
+        response = self.client.post('api/v1/login',
                                     data=json.dumps(self.user_data),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 200)
