@@ -1,5 +1,5 @@
 
-# Questioner Application  [![Coverage Status](https://coveralls.io/repos/github/samwanjo41/Questioner/badge.svg?branch=master)](https://coveralls.io/github/samwanjo41/Questioner?branch=master)  [![Build Status](https://travis-ci.org/samwanjo41/Questioner.svg?branch=develop)](https://travis-ci.org/samwanjo41/Questioner) [![Maintainability](https://api.codeclimate.com/v1/badges/8eeb2e020595e3956cc7/maintainability)](https://codeclimate.com/github/samwanjo41/Questioner/maintainability)
+# Questioner Application  [![Coverage Status](https://coveralls.io/repos/github/samwanjo41/Questioner/badge.svg?branch=develop)](https://coveralls.io/github/samwanjo41/Questioner?branch=develop)  [![Build Status](https://travis-ci.org/samwanjo41/Questioner.svg?branch=develop)](https://travis-ci.org/samwanjo41/Questioner) [![Maintainability](https://api.codeclimate.com/v1/badges/8eeb2e020595e3956cc7/maintainability)](https://codeclimate.com/github/samwanjo41/Questioner/maintainability)
 
 
 Crowd-source questions for a meetup. Questioner helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
