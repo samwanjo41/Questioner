@@ -69,13 +69,7 @@ class MeetupTest(unittest.TestCase):
             "tags": ["python", "Ihub"]
         }
 
-        self.mitup = {
-            "id": "id",
-            "topic": "topic",
-            "status": "status",
-            "user": "username"
-        }
-        
+       
 
       
     def test_upcoming_meetups(self):
@@ -93,12 +87,6 @@ class MeetupTest(unittest.TestCase):
         response = self.client.post('/api/v1/meetups', data=json.dumps(self.meetup3), content_type='application/json')
         self.assertEqual(response.status_code, 201)
 
-        """
-    def test_rsvp_meetups(self):
-        user rsvps upcoming meetups
-        response = self.client.post('/api/v1/meetups/1/rsvp', data=json.dumps(self.mitup), content_type='application/json')
-        self.assertEqual(response.status_code, 201) 
-        """
 
 
 class QuestionsTest(unittest.TestCase):
