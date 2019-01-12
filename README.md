@@ -39,7 +39,7 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
 | api/v1/questions	                        | POST       | 	Create a question for a specific meetup  |
 | api/v1/questions/<question_id>/upvote	    | PATCH      | Up-vote a specific question  |
 | api/v1/questions/<question_id>/downvote   | PATCH     | Down-vote a specific question |
-| api/v1/add_meetups/<meetip_id>/rsvps	         | POST       | Create a question for a specific meetup |
+| api/v1/meetups/<meetip_id>/rsvps	         | POST       | Create a question for a specific meetup |
 
 # Authors
     Samuel Wanjohi
