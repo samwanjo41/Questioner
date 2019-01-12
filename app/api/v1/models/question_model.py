@@ -30,6 +30,6 @@ class QuestionsModel(object):
         """Retrieves a specific question"""
         question = [new_quiz for new_quiz in self.db
             if new_quiz["id"] == id]
-        return meetup
+        return question
 
     

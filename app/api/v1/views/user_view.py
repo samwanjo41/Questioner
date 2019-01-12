@@ -6,6 +6,7 @@ user_view = UsersModel()
 
 method1 = Blueprint('api', __name__,)
 
+
 @method1.route('/api/v1/register', methods=['POST'])
 def register():
     try:
@@ -21,15 +22,12 @@ def register():
         return jsonify({
             "Error": "Invalid {} Key field".format(e)
         }), 400
-    
-    response = user_view.create_user(firstname, lastname, othername, email, phonenumber, username, password        
-    )
+    response = user_view.create_user(firstname, lastname, othername, email, phonenumber, username, password)
     return make_response(jsonify({
             "Message": "User Created Successfully",
             "details": response,
             "status": 201
         }), 201)
-    
 
 
 @method1.route('/api/v1/login', methods=['POST'])

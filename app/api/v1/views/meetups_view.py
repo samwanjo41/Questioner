@@ -19,13 +19,12 @@ def createMeetup():
             topic = data["topic"]
             happeningOn = data["happeningOn"]
             tags = data["tags"]
-    
     except Exception as e:
         return jsonify({
             "Error": "Invalid {} Key field".format(e)
         }), 400
-    
-    response = meetups_view.create_meetups(images, happeningOn, location, topic, tags)
+    response = meetups_view.create_meetups(images, happeningOn, location,
+                                              topic, tags)
 
     return make_response(jsonify({
             "Message": "Meetup Created Successfully",
@@ -33,7 +32,7 @@ def createMeetup():
             "status": 201
         }), 201)
 
-        
+
 @version2.route('/api/v1/meetups/upcoming', methods=['GET'])
 def get_meetups():
     """Get all meetups route."""
@@ -43,11 +42,34 @@ def get_meetups():
         "data": meetups
     }), 200)
 
-    
+
 @version2.route('/api/v1/meetups/<int:id>', methods=['GET'])
 def get_specific_meetup(id):
     meetups = MeetupsModel().get_a_specific_meetup(id)
     return make_response(jsonify({
         "status": 200,
         "data": meetups
-    }), 200)
+    }), 200) 
+
+
+
+@version2.route('/api/v1/meetups/<int:id>/rsvp', methods=['POST'])
+def rsvpMeetup(id):
+    try:
+            data = request.get_json()
+            id = id
+            topic = data['topic']  
+            status = data['status']
+            username = data['name']
+    except Exception as e:
+        return jsonify({
+            "Error": "Invalid {} Key field".format(e)
+        }), 400
+    response = meetups_view.rsvp_for_meetup(id, topic, status,
+                                              username)
+
+    return make_response(jsonify({
+            "Message": "Meetup Rsvp-ed Successfully",
+            "data": response,
+            "status": 201
+        }), 201)

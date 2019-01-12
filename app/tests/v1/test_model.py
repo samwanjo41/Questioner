@@ -10,8 +10,8 @@ class TestUsers(unittest.TestCase):
 
         self.app = create_app('testing')
         self.client = self.app.test_client()
-        self.data = {
-                    "id": 2,
+        self.myuser = {
+                    
                     "firstname": "Samuel",
                     "lastname": "Wanjohi",
                     "othername": "SamWan",
@@ -28,7 +28,7 @@ class TestUsers(unittest.TestCase):
 
     def test_register(self):
         response = self.client.post('api/v1/register',
-                                    data=json.dumps(self.data),
+                                    data=json.dumps(self.myuser),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 400)
 
@@ -68,6 +68,13 @@ class MeetupTest(unittest.TestCase):
             "happeningOn": "happeningOn",
             "tags": ["python", "Ihub"]
         }
+
+        self.mitup = {
+            "id": "id",
+            "topic": "topic",
+            "status": "status",
+            "user": "username"
+        }
         
 
       
@@ -77,14 +84,21 @@ class MeetupTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_specific_meetups(self):
-        """user view upcoming meetups"""
+        """user view specific meetup by id"""
         response = self.client.get('/api/v1/meetups/1', data=json.dumps(self.meetup), content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
     def test_create_meetups(self):
-        """user view upcoming meetups"""
+        """ create meetups"""
         response = self.client.post('/api/v1/meetups', data=json.dumps(self.meetup3), content_type='application/json')
         self.assertEqual(response.status_code, 201)
+
+        """
+    def test_rsvp_meetups(self):
+        user rsvps upcoming meetups
+        response = self.client.post('/api/v1/meetups/1/rsvp', data=json.dumps(self.mitup), content_type='application/json')
+        self.assertEqual(response.status_code, 201) 
+        """
 
 
 class QuestionsTest(unittest.TestCase):
@@ -117,3 +131,9 @@ class QuestionsTest(unittest.TestCase):
     def test_create_question(self):
         response = self.client.post('/api/v1/question', data=json.dumps(self.question3), content_type='application/json')
         self.assertEqual(response.status_code, 201)
+
+    def test_get_all_question(self):
+        response = self.client.post('/api/v1/question', data=json.dumps(self.question3), content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+    

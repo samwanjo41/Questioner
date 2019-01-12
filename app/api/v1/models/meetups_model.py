@@ -6,7 +6,7 @@ from datetime import datetime
 
 # assign meetups to an empty list
 meetups_rec = []
-
+rsvp = []
 # create the meetup model class
 
 
@@ -41,3 +41,16 @@ class MeetupsModel():
         meetup = [new_meetup for new_meetup in self.db
                   if new_meetup["id"] == id]
         return meetup
+
+
+    def rsvp_for_meetup(self,meetup_id,topic,status,username):
+
+        mitup = {
+            "meetup_id":meetup_id,
+            "topic":topic,
+            "status": status,
+            "user":username
+        }
+        rsvp.append(mitup)
+        return mitup
+     
