@@ -28,7 +28,7 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
     $ pip3 install python-dotenv
 
 6. Run the application
-    python3 run.py
+    python run.py
 
 # Testing API endpoints
 | Endpoint                                  | HTTP Verb | Functionality                 |
