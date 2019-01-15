@@ -69,7 +69,7 @@ def rsvpMeetup(id):
                                               username)
 
     return make_response(jsonify({
-            "Message": "Meetup Rsvp-ed Successfully",
+           
             "data": response,
             "status": 201
         }), 201)
