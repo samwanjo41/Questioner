@@ -31,14 +31,9 @@ class QuestionsTest(unittest.TestCase):
 
     def test_create_question(self):
         response = self.client.post('/api/v1/question', data=json.dumps(self.question3), content_type='application/json')
-        result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(result["status"], 201)
+        
+          
 
-    def test_get_all_question(self):
-        response = self.client.get('/api/v1/question')
-        result = json.loads(response.data.decode('utf-8'))
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(result["status"], 201)
-
+    
     
