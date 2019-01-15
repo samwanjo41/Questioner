@@ -27,7 +27,7 @@ class MeetupsModel():
             "location": location,
             "images": images,
             "tags": tags,
-            "createdOn":  datetime.now()
+            "createdOn":  datetime.utcnow().isoformat()
         }
         self.db.append(payload)
         return payload
