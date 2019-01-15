@@ -40,18 +40,18 @@ class MeetupTest(unittest.TestCase):
       
     def test_upcoming_meetups(self):
         """user view upcoming meetups"""
-        response = self.client.get('/api/v1/meetups/upcoming', content_type='application/json')
+        response = self.client.get('/meetups/upcoming', content_type='application/json')
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
-        self.assertEqual(result["message"], 200)
+        
        
        
 
     def test_specific_meetups(self):
         """user view specific meetup by id"""
         today = datetime.utcnow().isoformat()
-        response = self.client.get('/api/v1/meetups/1', content_type='application/json')
+        response = self.client.get('/meetups/1', content_type='application/json')
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(result["status"], 200)
@@ -59,7 +59,7 @@ class MeetupTest(unittest.TestCase):
 
     def test_create_meetups(self):
         """ create meetups"""
-        response = self.client.post('/api/v1/meetups', data=json.dumps(self.meetup3), content_type='application/json')
+        response = self.client.post('/meetups', data=json.dumps(self.meetup3), content_type='application/json')
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 201)
         self.assertEqual(result["status"], 201)
