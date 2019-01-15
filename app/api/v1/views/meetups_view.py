@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, make_response, request
 from ..models.meetups_model import MeetupsModel
+from app.api.v1.utils.validators import dataValidator
 from datetime import datetime
 import re
 
@@ -9,7 +10,7 @@ meetups_view = MeetupsModel()
 v1 = Blueprint('apiv2', __name__, )
 
 
-@v1.route('/meetups', methods=['POST'])
+@v1.route('/api/v1/meetups', methods=['POST'])
 def createMeetup():
     try:
             data = request.get_json()
@@ -21,8 +22,25 @@ def createMeetup():
             tags = data["tags"]
     except Exception as e:
         return jsonify({
-            "Error": "Invalid {} Key field".format(e)
+            "Error": " {} Key field is missing".format(e)
         }), 400
+
+    if not check_name_format(topic):
+        return make_response(jsonify({
+            "Error": "Topic has invalid format"
+        }), 400)
+
+    if check_for_empty_string(location):
+        return make_response(jsonify({
+            "Error": "location cannot be empty"
+        }), 400)
+
+    if check_for_empty_string(tags):
+        return make_response(jsonify({
+            "Error": "tags cannot be empty"
+        }), 400)
+
+    
     response = meetups_view.create_meetups(images, happeningOn, location,
                                               topic, tags)
 
@@ -33,7 +51,7 @@ def createMeetup():
         }), 201)
 
 
-@v1.route('/meetups/upcoming', methods=['GET'])
+@v1.route('/api/v1/meetups/upcoming', methods=['GET'])
 def get_meetups():
     """Get all meetups route."""
     meetups = MeetupsModel().get_all_meetups()
@@ -50,7 +68,7 @@ def get_meetups():
 
 
 
-@v1.route('/meetups/<int:id>', methods=['GET'])
+@v1.route('/api/v1/meetups/<int:id>', methods=['GET'])
 def get_specific_meetup(id):
     meetups = MeetupsModel().get_a_specific_meetup(id)
     if meetups:
@@ -66,7 +84,7 @@ def get_specific_meetup(id):
 
 
 
-@v1.route('/meetups/<int:id>/rsvp', methods=['POST'])
+@v1.route('/api/v1/meetups/<int:id>/rsvp', methods=['POST'])
 def rsvpMeetup(id):
     try:
             data = request.get_json()
@@ -80,9 +98,14 @@ def rsvpMeetup(id):
         }), 400
     response = meetups_view.rsvp_for_meetup(id, topic, status,
                                               username)
-
-    return make_response(jsonify({
+    if id == id:
+        return make_response(jsonify({
             "Message": "Meetup Rsvp-ed Successfully",
             "data": response,
             "status": 201
         }), 201)
+    else:
+        return make_response(jsonify({
+            "error": "Meetup does not seem to exist",
+            "status": 404            
+        }))
