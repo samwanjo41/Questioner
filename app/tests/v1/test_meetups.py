@@ -54,7 +54,7 @@ class MeetupTest(unittest.TestCase):
         response = self.client.get('/meetups/1', content_type='application/json')
         result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(result["status"], 200)
+       
         
 
     def test_create_meetups(self):
