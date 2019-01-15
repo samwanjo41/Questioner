@@ -31,7 +31,10 @@ class QuestionsTest(unittest.TestCase):
 
     def test_create_question(self):
         response = self.client.post('/api/v1/question', data=json.dumps(self.question3), content_type='application/json')
+        result = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 201)
+        self.assertEqual(result["status"], 201)
+        self.assertEqual(result["Message"], "Question Created Successfully")
         
           
 
