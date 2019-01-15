@@ -50,6 +50,7 @@ def get_meetups():
 
 
 
+
 @v1.route('/meetups/<int:id>', methods=['GET'])
 def get_specific_meetup(id):
     meetups = MeetupsModel().get_a_specific_meetup(id)
