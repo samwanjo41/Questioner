@@ -12,8 +12,8 @@ class TestUsers(unittest.TestCase):
         self.client = self.app.test_client()
         self.myuser = {
                     
-                    "firstname": "Samuel",
-                    "lastname": "Wanjohi",
+                    "firstName": "Samuel",
+                    "lastName": "Wanjohi",
                     "othername": "SamWan",
                     "email": "Sam@wan.com",
                     "phoneNumber": "0716217949",
@@ -27,10 +27,10 @@ class TestUsers(unittest.TestCase):
         }
 
     def test_register(self):
-        response = self.client.post('api/v1/register',
+        response = self.client.post('/register',
                                     data=json.dumps(self.myuser),
                                     content_type='application/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 404)
 
     def test_login(self):
         response = self.client.post('api/v1/login',
