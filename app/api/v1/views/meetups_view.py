@@ -46,7 +46,8 @@ def get_meetups():
         return make_response(jsonify({
         "status": 404,
         "error": "No meetups created yet"
-    }), 400)
+    }), 404)
+
 
 
 
