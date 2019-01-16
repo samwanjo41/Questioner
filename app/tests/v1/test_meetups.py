@@ -31,11 +31,16 @@ class MeetupTest(unittest.TestCase):
             "location": "location",
             "tags": ["python", "Ihub"],
             "topic": "topic",
-            
-           
+                     
         }
 
-       
+        self.meetup_data3 = {
+            "meetup_date": "24 January 2018",
+            "topic": "Machine learning",
+            "about": " ",
+            "location": "Nairobi, Kenya",
+            "meetup_image": "ML.jpg"
+        }     
 
       
     def test_upcoming_meetups(self):
@@ -64,4 +69,24 @@ class MeetupTest(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(result["status"], 201)
         self.assertEqual(result["Message"], "Meetup Created Successfully")
+
+    
+    def test_no_location(self):
+        '''Test create meetups'''
+        self.client.post('/api/v1/meetups',
+                         data=json.dumps(self.meetup_data3), content_type='application/json')
+        self.assertRaises(ValueError)
+
+
+    def test_no_topic(self):
+        '''Test create meetups'''
+        self.client.post('/api/v1/meetups',
+                         data=json.dumps(self.meetup_data3), content_type='application/json')
+        self.assertRaises(ValueError)
+       
+    def test_no_image(self):
+        '''Test create meetups'''
+        self.client.post('/api/v1/meetups',
+                         data=json.dumps(self.meetup_data3), content_type='application/json')
+        self.assertRaises(ValueError)
        

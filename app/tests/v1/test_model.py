@@ -26,6 +26,15 @@ class TestUsers(unittest.TestCase):
             'username': 'a12ngdggd'
         }
 
+        self.user_data1 = {
+            "firstname": " ",
+            "lastname": "lastname",
+            "email": "firstnamelastname@gmail.com",
+            "password": "Password12345",
+            "confirm_password": "Password12345",
+            "imagefile": "image.png"
+        }
+
     def test_register(self):
         response = self.client.post('/register',
                                     data=json.dumps(self.myuser),
@@ -37,5 +46,34 @@ class TestUsers(unittest.TestCase):
                                     data=json.dumps(self.data1),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 200)
+
+    def test_firstname(self):
+        '''test for firstname'''
+        self.client.post(
+            '/api/v1/register',
+            data=json.dumps(self.user_data1), content_type='application/json')
+        self.assertRaises(ValueError)
+
+    def test_lastname(self):
+        '''Test for invalid firstname'''
+
+        self.client.post(
+            '/api/v1/auth/registration',
+            data=json.dumps(self.user_data1), content_type='application/json')
+        self.assertRaises(ValueError)
+
+    def test_password(self):
+        '''Test for password'''
+        self.client.post(
+            '/api/v1/auth/registration',
+            data=json.dumps(self.user_data1), content_type='application/json')
+        self.assertRaises(ValueError)
+
+    def test_images(self):
+        '''Test for image'''
+        self.client.post(
+            '/api/v1/auth/registration',
+            data=json.dumps(self.user_data1), content_type='application/json')
+        self.assertRaises(ValueError)
 
 
