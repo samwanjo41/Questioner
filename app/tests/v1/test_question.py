@@ -29,6 +29,17 @@ class QuestionsTest(unittest.TestCase):
             "votes": "votes"
         }
 
+        self.question_missing = {
+            "id": 1,
+            "createdOn": "Date",
+            "createdBy": 1,
+            "meetup": 1,
+            "title": "Food",
+            "body": "",
+            "votes": 0
+
+        }
+
     def test_create_question(self):
         response = self.client.post('/api/v1/question', data=json.dumps(self.question3), content_type='application/json')
         result = json.loads(response.data.decode('utf-8'))
@@ -36,7 +47,31 @@ class QuestionsTest(unittest.TestCase):
         self.assertEqual(result["status"], 201)
         self.assertEqual(result["Message"], "Question Created Successfully")
         
+    def test_get_a_question(self):
+        """Test if the we can get a specific meetup"""
+        response = self.client.get('/api/v1/questions/1',
+                                   content_type='application/json')
+        self.assertEqual(response.status_code, 404)
+
+    def test_get_all_question(self):
+        """Test if the we can get all question records"""
+        response = self.client.get('/api/v1/questions/',
+                                   content_type='application/json')
+        self.assertEqual(response.status_code, 404)
           
+    def test_question_post_with_missing_value(self):
+        """Test if missing value will output an error"""
+        question = {
+            'body' : 'How will AI impart kenya in 2030'
+        }
+        response = self.client.post('/api/v1/questions',
+                                    data=json.dumps(
+                                        question),
+                                    content_type='application/json')
+        data = response.get_json()
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['Message'], 'Invalid data. Please fill all required fields')
+        
 
     
     
