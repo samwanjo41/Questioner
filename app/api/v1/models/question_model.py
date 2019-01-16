@@ -32,4 +32,18 @@ class QuestionsModel(object):
             if new_quiz["id"] == id]
         return question
 
-    
+    def upvote(self, question_id):
+        """ Function to upvote question """
+        for question in questions_list:
+            if question['id'] == id:
+                question['votes'] = question['votes']+1
+
+            return question
+
+    def downvote(self, question_id):
+        """ Function to upvote question """
+        for question in questions_list:
+            if question['id'] == id:
+                question['votes'] = question['votes']-1
+
+            return question

@@ -39,6 +39,12 @@ class QuestionsTest(unittest.TestCase):
             "votes": 0
 
         }
+        self.que = {
+             "meetup": "meetup",
+            "title": "title",
+            "body": "body",
+            "votes": "votes"
+        }
 
     def test_create_question(self):
         response = self.client.post('/api/v1/question', data=json.dumps(self.question3), content_type='application/json')
@@ -73,4 +79,15 @@ class QuestionsTest(unittest.TestCase):
         
 
     
-    
+    def test_upvote(self):
+        
+        """
+        Tests if the enpoint can implement an up-vote on a question
+        """
+        response=self.client.patch(
+            '/api/v1/question/1/upvote',data=json.dumps(self.que),
+            content_type="application/json")
+        data=response.get_json()
+        assert response.status_code==200
+       
+       
