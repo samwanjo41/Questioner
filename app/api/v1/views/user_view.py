@@ -2,12 +2,14 @@
 from flask import Blueprint, jsonify, make_response, request
 from ..models.user_model import UsersModel
 
+
+
 user_view = UsersModel()
 
-method1 = Blueprint('api', __name__,)
+v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
 
-@method1.route('/api/v1/register', methods=['POST'])
+@v1.route('/register', methods=['POST'])
 def register():
     try:
         data = request.get_json()
@@ -22,6 +24,8 @@ def register():
         return jsonify({
             "Error": "Invalid {} Key field".format(e)
         }), 400
+
+    
     response = user_view.create_user(firstname, lastname, othername, email, phonenumber, username, password)
     return make_response(jsonify({
             "Message": "User Created Successfully",
@@ -30,7 +34,7 @@ def register():
         }), 201)
 
 
-@method1.route('/api/v1/login', methods=['POST'])
+@v1.route('/login', methods=['POST'])
 def login():
     """This is the login method"""
     data = request.get_json()

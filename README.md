@@ -18,10 +18,10 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
     $ cd Questioner
 
 3. Create a virtual environment
-    Create a virtual environment
+    
 
 4. Activate the virtual environment
-    $ source venv/bin/activate
+    $ source env/bin/activate
 
 5. Install the dependencies from the requirements file
     $ pip3 install -r requirements.txt

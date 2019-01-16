@@ -6,10 +6,10 @@ import re
 
 meetups_view = MeetupsModel()
 
-version2 = Blueprint('apiv2', __name__,)
+v1 = Blueprint('apiv2', __name__, )
 
 
-@version2.route('/api/v1/meetups', methods=['POST'])
+@v1.route('/meetups', methods=['POST'])
 def createMeetup():
     try:
             data = request.get_json()
@@ -33,27 +33,41 @@ def createMeetup():
         }), 201)
 
 
-@version2.route('/api/v1/meetups/upcoming', methods=['GET'])
+@v1.route('/meetups/upcoming', methods=['GET'])
 def get_meetups():
     """Get all meetups route."""
     meetups = MeetupsModel().get_all_meetups()
-    return make_response(jsonify({
+    if meetups:
+        return make_response(jsonify({
         "status": 200,
         "data": meetups
     }), 200)
+    else:
+        return make_response(jsonify({
+        "status": 404,
+        "error": "No meetups created yet"
+    }), 404)
 
 
-@version2.route('/api/v1/meetups/<int:id>', methods=['GET'])
+
+
+@v1.route('/meetups/<int:id>', methods=['GET'])
 def get_specific_meetup(id):
     meetups = MeetupsModel().get_a_specific_meetup(id)
-    return make_response(jsonify({
+    if meetups:
+        return make_response(jsonify({
         "status": 200,
         "data": meetups
     }), 200) 
+    else:
+         return make_response(jsonify({
+             "status": 404, 
+             "error": "Meetup not found"
+             }), 404)
 
 
 
-@version2.route('/api/v1/meetups/<int:id>/rsvp', methods=['POST'])
+@v1.route('/meetups/<int:id>/rsvp', methods=['POST'])
 def rsvpMeetup(id):
     try:
             data = request.get_json()

@@ -6,9 +6,9 @@ import re
 
 question_view = QuestionsModel()
 
-app1 = Blueprint('apiv3', __name__,)
+v1 = Blueprint('apiv3', __name__, url_prefix='/api/v1')
 
-@app1.route('/api/v1/question', methods=['POST'])
+@v1.route('/question', methods=['POST'])
 def createQuestion():
     try:
             data = request.get_json()
