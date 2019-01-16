@@ -28,8 +28,25 @@ class QuestionsModel(object):
 
     def get_a_specific_question(self, id):
         """Retrieves a specific question"""
-        question = [new_quiz for new_quiz in self.db
+        question = [new_quiz for new_quiz in questions_list
             if new_quiz["id"] == id]
         return question
+
+    def upvote(self, question_id):
+        """ Function to upvote question """
+        for question in questions_list:
+            if question['id'] == id:
+                question['votes'] = question['votes']+1
+
+            return question
+
+    def downvote(self, question_id):
+        """ Function to upvote question """
+        for question in questions_list:
+            if question['id'] == id:
+                question['votes'] = question['votes']-1
+
+            return question
+
 
     

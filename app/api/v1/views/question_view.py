@@ -31,3 +31,51 @@ def createQuestion():
             "status": 201
         }), 201)
 
+@v1.route('/question/<int:question_id>/downvote/', methods=["PATCH"])
+def downvote(question_id):
+    try:
+            data = request.get_json()
+           
+            meetup = data["meetup"]
+            title = data["title"]
+            body = data["body"]
+            votes = data["votes"]
+               
+    except Exception as e:
+        return jsonify({
+            "Error": "Invalid {} Key field".format(e)
+        }), 400
+        """Upvote method"""
+    if not question_view.downvote(question_id):
+        return jsonify({'status': 404, 'message': 'Question not found'}), 404    
+
+    downvote = question_view.downvote(question_id, meetup, title, body, votes)
+
+  
+    return jsonify({'status': 200, 'message': 'Question has been upvoted successfully', 'data': downvote}), 200
+
+       
+@v1.route('/question/<int:question_id>/upvote/', methods=["PATCH"])
+def upvote(question_id):
+    try:
+            data = request.get_json()
+           
+            meetup = data["meetup"]
+            title = data["title"]
+            body = data["body"]
+            votes = data["votes"]
+               
+    except Exception as e:
+        return jsonify({
+            "Error": "Invalid {} Key field".format(e)
+        }), 400
+        """Upvote method"""
+    if not question_view.upvote(question_id):
+        return jsonify({'status': 404, 'message': 'Question not found'}), 404    
+
+    upvote = question_view.upvote(question_id, meetup, title, body, votes)
+
+  
+    return jsonify({'status': 200, 'message': 'Question has been upvoted successfully', 'data': upvote}), 200
+
+       
