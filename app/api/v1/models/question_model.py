@@ -46,7 +46,9 @@ class QuestionsModel(object):
             if question['id'] == id:
                 question['votes'] = question['votes']-1
 
+
             return question
 
 
     
+

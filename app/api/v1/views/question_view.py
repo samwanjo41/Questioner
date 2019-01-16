@@ -73,7 +73,9 @@ def upvote(question_id):
     if not question_view.upvote(question_id):
         return jsonify({'status': 404, 'message': 'Question not found'}), 404    
 
-    upvote = question_view.upvote(question_id, meetup, title, body, votes)
+
+    upvote = question_view.upvote(question_id)
+
 
   
     return jsonify({'status': 200, 'message': 'Question has been upvoted successfully', 'data': upvote}), 200
