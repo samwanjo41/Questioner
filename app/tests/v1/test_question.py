@@ -70,7 +70,6 @@ class QuestionsTest(unittest.TestCase):
                                     content_type='application/json')
         data = response.get_json()
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(data['Message'], 'Invalid data. Please fill all required fields')
         
 
     
