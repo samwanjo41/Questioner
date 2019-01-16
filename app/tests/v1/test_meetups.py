@@ -45,10 +45,11 @@ class MeetupTest(unittest.TestCase):
       
     def test_upcoming_meetups(self):
         """user view upcoming meetups"""
-        response = self.client.get('/meetups/upcoming', content_type='application/json')
-        result = json.loads(response.data.decode('utf-8'))
-        self.assertEqual(response.status_code, 200)
+        get_response = self.client.get('/meetups/upcoming', content_type='application/json')
+        result = json.loads(get_response.data.decode())
+        self.assertEqual(get_response.status_code, 200)
         self.assertEqual(result["status"], 200)
+        self.assertEqual(result['data'][0]['location'], 'location')
         
        
        
@@ -56,9 +57,12 @@ class MeetupTest(unittest.TestCase):
     def test_specific_meetups(self):
         """user view specific meetup by id"""
         today = datetime.utcnow().isoformat()
-        response = self.client.get('/meetups/1', content_type='application/json')
-        result = json.loads(response.data.decode('utf-8'))
-        self.assertEqual(response.status_code, 200)
+        self.client.post('/meetups', data=json.dumps(self.meetup3), content_type='application/json')
+        my_response = self.client.get('/meetups/1', content_type='application/json')
+        res = json.loads(my_response.data.decode())
+        self.assertEqual(my_response.status_code, 200)
+        self.assertEqual(res['data'][0]['location'], 'location')
+       
        
         
 
@@ -69,6 +73,7 @@ class MeetupTest(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(result["status"], 201)
         self.assertEqual(result["Message"], "Meetup Created Successfully")
+        self.assertEqual(result['data']['images'], 'topic')
 
     
     def test_no_location(self):
@@ -88,5 +93,6 @@ class MeetupTest(unittest.TestCase):
         '''Test create meetups'''
         self.client.post('/api/v1/meetups',
                          data=json.dumps(self.meetup_data3), content_type='application/json')
+        
         self.assertRaises(ValueError)
-       
+        

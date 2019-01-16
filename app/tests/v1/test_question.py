@@ -22,10 +22,10 @@ class QuestionsTest(unittest.TestCase):
         }
 
         self.question3 = {
-            "createdBy": "createdBy",
-            "meetup": "meetup",
-            "title": "title",
-            "body": "body",
+            "createdBy": "myself",
+            "meetup": "coding",
+            "title": "how to code",
+            "body": "A few lines",
             "votes": "votes"
         }
 
@@ -52,18 +52,24 @@ class QuestionsTest(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(result["status"], 201)
         self.assertEqual(result["Message"], "Question Created Successfully")
+        self.assertEqual(result["data"]['body'], "coding")
+
         
     def test_get_a_question(self):
         """Test if the we can get a specific meetup"""
         response = self.client.get('/api/v1/questions/1',
                                    content_type='application/json')
-        self.assertEqual(response.status_code, 404)
+        result = json.loads(response.data.decode('utf-8'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(result["data"][0]['body'], "coding")
 
     def test_get_all_question(self):
         """Test if the we can get all question records"""
         response = self.client.get('/api/v1/questions/',
                                    content_type='application/json')
-        self.assertEqual(response.status_code, 404)
+        result = json.loads(response.data.decode('utf-8'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(result["data"][0]['body'], "coding")
           
     def test_question_post_with_missing_value(self):
         """Test if missing value will output an error"""
@@ -75,7 +81,7 @@ class QuestionsTest(unittest.TestCase):
                                         question),
                                     content_type='application/json')
         data = response.get_json()
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 405)
         
 
     
