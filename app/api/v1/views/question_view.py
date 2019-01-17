@@ -48,6 +48,39 @@ def createQuestion():
             "status": 201
         }), 201)
 
+   
+
+@v1.route('/questions', methods=['GET'])
+def get_questions():
+    """Get all questions"""
+    question = QuestionsModel().get_all_questions()
+    if question:
+        return make_response(jsonify({
+        "status": 200,
+        "data": question
+    }), 200)
+    else:
+        return make_response(jsonify({
+        "status": 404,
+        "error": "No question created yet"
+    }), 404)
+
+@v1.route('/questions/<int:id>', methods=['GET'])
+def get_a_question(id):
+    """Get a specific question"""
+    question = QuestionsModel().get_a_specific_question(id)
+    if question:
+        return make_response(jsonify({
+        "status": 200,
+        "data": question
+    }), 200)
+    else:
+        return make_response(jsonify({
+        "status": 404,
+        "error": "No question created yet"
+    }), 404)
+
+
 @v1.route('/question/<int:question_id>/downvote/', methods=["PATCH"])
 def downvote(question_id):
     try:

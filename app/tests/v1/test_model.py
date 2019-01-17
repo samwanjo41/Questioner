@@ -39,8 +39,9 @@ class TestUsers(unittest.TestCase):
         response = self.client.post('/register',
                                     data=json.dumps(self.myuser),
                                     content_type='application/json')
-
+       
         self.assertEqual(response.status_code, 404)
+        
 
 
     def test_login(self):
@@ -60,21 +61,21 @@ class TestUsers(unittest.TestCase):
         '''Test for invalid firstname'''
 
         self.client.post(
-            '/api/v1/auth/registration',
+            '/api/v1/register',
             data=json.dumps(self.user_data1), content_type='application/json')
         self.assertRaises(ValueError)
 
     def test_password(self):
         '''Test for password'''
         self.client.post(
-            '/api/v1/auth/registration',
+            '/api/v1/register',
             data=json.dumps(self.user_data1), content_type='application/json')
         self.assertRaises(ValueError)
 
     def test_images(self):
         '''Test for image'''
         self.client.post(
-            '/api/v1/auth/registration',
+            '/api/v1/register',
             data=json.dumps(self.user_data1), content_type='application/json')
         self.assertRaises(ValueError)
 
