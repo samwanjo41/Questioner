@@ -25,20 +25,7 @@ def createMeetup():
             "Error": " {} Key field is missing".format(e)
         }), 400
 
-    if not check_name_format(topic):
-        return make_response(jsonify({
-            "Error": "Topic has invalid format"
-        }), 400)
-
-    if check_for_empty_string(location):
-        return make_response(jsonify({
-            "Error": "location cannot be empty"
-        }), 400)
-
-    if check_for_empty_string(tags):
-        return make_response(jsonify({
-            "Error": "tags cannot be empty"
-        }), 400)
+    
 
     
     response = meetups_view.create_meetups(images, happeningOn, location,

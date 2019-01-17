@@ -24,21 +24,6 @@ def createQuestion():
             "Error": " {} Key field is missing".format(e)
         }), 400
 
-    if check_for_empty_string(title):
-        return make_response(jsonify({
-            "Error": "title cannot be empty"
-        }), 400)
-    
-
-    if check_for_empty_string(body):
-        return make_response(jsonify({
-            "Error": "body cannot be empty"
-        }), 400)
-
-    if not check_name_format(title):
-        return make_response(jsonify({
-            "Error": "Title has invalid format"
-        }), 400)
     
     response = question_view.create_questions(createdBy, meetup, title, body, votes)
 
