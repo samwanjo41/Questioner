@@ -46,15 +46,16 @@ def downvote(question_id):
             "Error": "Invalid {} Key field".format(e)
         }), 400
         """Upvote method"""
-    if not question_view.downvote(question_id):
+    if question_view.downvote(question_id) == question_id:
         return jsonify({'status': 404, 'message': 'Question not found'}), 404    
-
-    downvote = question_view.downvote(question_id, meetup, title, body, votes)
+    else:
+        downvote = question_view.downvote(question_id)
 
   
-    return jsonify({'status': 200, 'message': 'Question has been upvoted successfully', 'data': downvote}), 200
+    return jsonify({'status': 200, 'message': 'Question has been downvoted successfully', 'data': downvote}), 200
 
        
+
 @v1.route('/question/<int:question_id>/upvote/', methods=["PATCH"])
 def upvote(question_id):
     try:
@@ -69,15 +70,12 @@ def upvote(question_id):
         return jsonify({
             "Error": "Invalid {} Key field".format(e)
         }), 400
-        """Upvote method"""
-    if not question_view.upvote(question_id):
-        return jsonify({'status': 404, 'message': 'Question not found'}), 404    
+    upvote = question_view.upvote(question_id)   
+    if upvote:
+        return jsonify({'status': 200, 'message': 'Question has been upvoted successfully', 'data': upvote}), 200   
+    else:
+         return make_response(jsonify({
+             "status": 404, 
+             "error": "Question not found"
+             }), 404)
 
-
-    upvote = question_view.upvote(question_id)
-
-
-  
-    return jsonify({'status': 200, 'message': 'Question has been upvoted successfully', 'data': upvote}), 200
-
-       
