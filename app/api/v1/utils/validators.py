@@ -3,7 +3,7 @@ import re
 
 class dataValidator():
 
-    def check_for_empty_string(data):
+    def check_empty_string(data):
         
         """
         Checks if data presented by a user is empty.
