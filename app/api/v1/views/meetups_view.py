@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, make_response, request
 from ..models.meetups_model import MeetupsModel
-from app.api.v1.utils.validators import dataValidator
+from app.api.v1.utils.validators import Validator
 from datetime import datetime
 import re
 
@@ -14,8 +14,7 @@ v1 = Blueprint('apiv2', __name__, )
 def createMeetup():
     try:
             data = request.get_json()
-            images = data["images"]
-            createdOn = data["createdOn"]
+            images = data["images"]          
             location = data["location"]
             topic = data["topic"]
             happeningOn = data["happeningOn"]
@@ -24,18 +23,47 @@ def createMeetup():
         return jsonify({
             "Error": " {} Key field is missing".format(e)
         }), 400
+    if not Validator.check_name_format(topic):
+         
+        return make_response(jsonify({'message':
+                    'Invalid topic format'}), 400)
 
+    if  Validator.check_empty_string(location):
+         return make_response(jsonify({'message':
+                    'Invalid location format'}), 400)
     
+    if  Validator.check_empty_string(images):
+         return make_response(jsonify({'message':
+                    'Invalid images format'}), 400)
+    
+    if not Validator.check_date_format(happeningOn):
+         return make_response(jsonify({'message':
+                    'Invalid happeningOn format'}), 400)
 
+    if  Validator.check_empty_string(tags):
+         return make_response(jsonify({'message':
+                    'Invalid tags format'}), 400) 
     
+    meetup_found = MeetupsModel.get_meetup_by_topic(topic)
+    venue_occupied = MeetupsModel.get_meetup_by_location(location)
+    date_booked = MeetupsModel.get_meetup_by_date(happeningOn)
+
     response = meetups_view.create_meetups(images, happeningOn, location,
                                               topic, tags)
+    
+    if meetup_found is False:
+        return make_response(jsonify({
+                "Message": "Meetup Created Successfully",
+                 "data": response,  
+                "status": 201
+            }), 201)
 
-    return make_response(jsonify({
-            "Message": "Meetup Created Successfully",
-            "data": response,
-            "status": 201
-        }), 201)
+    else:
+         return make_response(jsonify({
+                "Message": "Topic already exists ",  
+                          
+                "status": 400
+            }), 400)        
 
 
 @v1.route('/api/v1/meetups/upcoming', methods=['GET'])
@@ -76,16 +104,24 @@ def get_specific_meetup(id):
 def rsvpMeetup(id):
     try:
             data = request.get_json()
-            id = id
             topic = data['topic']  
             status = data['status']
-            username = data['name']
+            username = data['username']
+         
     except Exception as e:
         return jsonify({
             "Error": "Invalid {} Key field".format(e)
         }), 400
-    response = meetups_view.rsvp_for_meetup(id, topic, status,
-                                              username)
+
+    if Validator.check_empty_string(topic):
+         return make_response(jsonify({'message':
+                    'Invalid topic format'}), 400)
+
+    if Validator.check_empty_string(status):
+         return make_response(jsonify({'message':
+                    'Invalid status format'}), 400)
+
+    response = meetups_view.rsvp_for_meetup(id, topic, status, username)
     if id == id:
         return make_response(jsonify({
             "Message": "Meetup Rsvp-ed Successfully",

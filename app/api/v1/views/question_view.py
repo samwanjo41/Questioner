@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, make_response, request
 from ..models.question_model import QuestionsModel
 from datetime import datetime
 import re
-from app.api.v1.utils.validators import dataValidator
+from app.api.v1.utils.validators import Validator
 
 
 question_view = QuestionsModel()
@@ -10,22 +10,32 @@ question_view = QuestionsModel()
 v1 = Blueprint('apiv3', __name__, url_prefix='/api/v1')
 
 @v1.route('/question', methods=['POST'])
+
 def createQuestion():
     try:
             data = request.get_json()
-            createdBy = data["createdBy"]
-            meetup = data["meetup"]
+            
+            meetup_id = data["meetup_id"]
             title = data["title"]
             body = data["body"]
             votes = data["votes"]
+            
                
     except Exception as e:
         return jsonify({
             "Error": " {} Key field is missing".format(e)
         }), 400
+    
+    if  Validator.check_empty_string(title):
+         return make_response(jsonify({'message':
+                    'title cannot be empty'}), 400)
+    
+    if  Validator.check_empty_string(body):
+         return make_response(jsonify({'message':
+                    'body cannot be empty'}), 400)
 
     
-    response = question_view.create_questions(createdBy, meetup, title, body, votes)
+    response = question_view.create_questions( title, body, votes, meetup_id)
 
     return make_response(jsonify({
             "Message": "Question Created Successfully",
@@ -81,7 +91,7 @@ def downvote(question_id):
             "Error": "Invalid {} Key field".format(e)
         }), 400
         """Upvote method"""
-    if question_view.downvote(question_id) == question_id:
+    if question_view.downvote(question_id) != question_id:
         return jsonify({'status': 404, 'message': 'Question not found'}), 404    
     else:
         downvote = question_view.downvote(question_id)

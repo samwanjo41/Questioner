@@ -42,6 +42,23 @@ class MeetupsModel():
                   if new_meetup["id"] == id]
         return meetup
 
+    def get_meetup_by_topic(topic):
+        current_meetup = [meetup for meetup in meetups_rec if meetup["topic"] == topic]
+        if current_meetup:
+            return current_meetup
+        else:
+            return False
+
+    def get_meetup_by_location(location):
+        current_location = [location for location in meetups_rec if location["location"] == location]
+       
+        return current_location
+
+    def get_meetup_by_date(happeningOn):
+        current_date = [date for date in meetups_rec if date["happeningOn"] == happeningOn]
+       
+        return current_date
+
 
     def rsvp_for_meetup(self,meetup_id,topic,status,username):
 

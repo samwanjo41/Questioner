@@ -1,7 +1,8 @@
 """Validation function to check app."""
 import re
-
-class dataValidator():
+from app.api.v1.models import meetups_model
+from datetime import datetime
+class Validator():
 
     def check_empty_string(data):
         
@@ -9,7 +10,7 @@ class dataValidator():
         Checks if data presented by a user is empty.
         """
 
-        if input_data.strip() == "":
+        if data.strip() == "":
             return 'All fields are required'
         return None
 
@@ -29,14 +30,9 @@ class dataValidator():
         """
         Check if value is a number.
         """
-        try:
-            int(number)
-        except ValueError:
-            return False
-        else:
-            if int(number) <= 0:
-                return False
+        if type(number) == int:
             return True
+        return False
 
 
     def check_name_format(input_name):
@@ -107,3 +103,8 @@ class dataValidator():
         else:
             res = False
         return res
+
+    def find_topic(topic):
+        for each_meetup in meetups_model.meetups_rec:
+            if each_meetup['topic'] == topic:
+                return each_meetup

@@ -7,16 +7,16 @@ class QuestionsModel(object):
     def __init__(self):
         self.db = questions_list
     
-    def create_questions(self, title, body, meetup, votes, createdBy):
+    def create_questions(self, title, body, meetup_id, votes):
         payload = {
 
             "id": len(self.db) + 1,
             "createdOn": datetime.now(),
-            "createdBy": createdBy,
-            "meetup": meetup,
             "title": title,
             "body": body,
-            "votes": votes
+            "votes": votes,
+            "meetup_id": meetup_id
+           
         }
 
         self.db.append(payload)
